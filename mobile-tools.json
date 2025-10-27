@@ -1,0 +1,11 @@
+{
+  "category": {
+    "id": "mobile-tools",
+    "name": "手机工具",
+    "subcategories": [
+      { "id": "mobile-tools-android", "name": "安卓工具" },
+      { "id": "mobile-tools-ios", "name": "iOS工具" }
+    ]
+  },
+  "resources": []
+}

@@ -1,0 +1,26 @@
+{
+  "category": {
+    "id": "game-resources",
+    "name": "游戏资源",
+    "subcategories": [
+      { "id": "game-resources-pc", "name": "电脑游戏" },
+      { "id": "game-resources-mobile", "name": "手机游戏" },
+      { "id": "game-resources-console", "name": "主机游戏" }
+    ]
+  },
+  "resources": [
+    {
+      "id": "1",
+      "title": "Minecraft 游戏资源包",
+      "description": "沙盒建造游戏及相关资源",
+      "links": [
+        { "url": "https://pan.baidu.com/s/minecraft1", "type": "baidu", "name": "百度网盘 - 游戏本体" },
+        { "url": "https://pan.quark.cn/s/minecraft1", "type": "quark", "name": "夸克网盘 - 资源包" },
+        { "url": "https://pan.xunlei.com/s/minecraft1", "type": "xunlei", "name": "迅雷网盘 - 整合包" }
+      ],
+      "category": "game-resources",
+      "subcategory": "game-resources-pc",
+      "tags": ["沙盒", "建造", "多平台"]
+    }
+  ]
+}

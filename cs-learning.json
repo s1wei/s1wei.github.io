@@ -1,0 +1,60 @@
+{
+  "category": {
+    "id": "cs-learning",
+    "name": "计算机学习资源",
+    "subcategories": [
+      { "id": "cs-learning-programming", "name": "编程语言" },
+      { "id": "cs-learning-web", "name": "Web开发" },
+      { "id": "cs-learning-ai", "name": "人工智能" },
+      { "id": "cs-learning-security", "name": "网络安全" }
+    ]
+  },
+  "resources": [
+    {
+      "id": "1",
+      "title": "Python零基础入门课程",
+      "description": "适合初学者的Python视频教程",
+      "links": [
+        { "url": "https://pan.baidu.com/s/example1", "type": "baidu", "name": "百度网盘" },
+        { "url": "https://pan.quark.cn/s/example1", "type": "quark", "name": "夸克网盘" }
+      ],
+      "category": "cs-learning",
+      "subcategory": "cs-learning-programming",
+      "tags": ["Python", "编程", "入门", "视频教程"]
+    },
+    {
+      "id": "2",
+      "title": "Python 基础教程",
+      "description": "全面的Python基础知识学习资料",
+      "links": [
+        { "url": "https://example.com/python-basics", "type": "direct", "name": "官方教程" }
+      ],
+      "category": "cs-learning",
+      "subcategory": "cs-learning-programming",
+      "tags": ["Python", "编程", "教程"]
+    },
+    {
+      "id": "3",
+      "title": "React.js 官方文档",
+      "description": "Facebook开源的JavaScript UI库",
+      "links": [
+        { "url": "https://reactjs.org/", "type": "direct", "name": "官方文档" }
+      ],
+      "category": "cs-learning",
+      "subcategory": "cs-learning-web",
+      "tags": ["前端", "JavaScript", "框架"]
+    },
+    {
+      "id": "4",
+      "title": "TensorFlow 教程合集",
+      "description": "Google开源的机器学习框架学习资料",
+      "links": [
+        { "url": "https://www.tensorflow.org/tutorials", "type": "direct", "name": "官方教程" },
+        { "url": "https://pan.xunlei.com/s/tensorflow", "type": "xunlei", "name": "迅雷网盘 - 视频教程" }
+      ],
+      "category": "cs-learning",
+      "subcategory": "cs-learning-ai",
+      "tags": ["机器学习", "深度学习", "AI"]
+    }
+  ]
+}

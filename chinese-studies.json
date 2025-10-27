@@ -1,0 +1,35 @@
+{
+  "category": {
+    "id": "chinese-studies",
+    "name": "国学学习",
+    "subcategories": [
+      { "id": "chinese-studies-classics", "name": "经典著作" },
+      { "id": "chinese-studies-philosophy", "name": "哲学思想" },
+      { "id": "chinese-studies-history", "name": "历史研究" }
+    ]
+  },
+  "resources": [
+    {
+      "id": "5",
+      "title": "论语导读",
+      "description": "孔子及其弟子言行录的现代解读",
+      "links": [
+        { "url": "https://pan.baidu.com/s/example2", "type": "baidu", "name": "百度网盘" }
+      ],
+      "category": "chinese-studies",
+      "subcategory": "chinese-studies-classics",
+      "tags": ["儒家", "经典", "哲学"]
+    },
+    {
+      "id": "9",
+      "title": "老子《道德经》",
+      "description": "道家经典著作，探讨宇宙本源与人生哲理",
+      "links": [
+        { "url": "https://pan.quark.cn/s/daodejing", "type": "quark", "name": "夸克网盘" }
+      ],
+      "category": "chinese-studies",
+      "subcategory": "chinese-studies-philosophy",
+      "tags": ["道家", "哲学", "经典"]
+    }
+  ]
+}

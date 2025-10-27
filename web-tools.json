@@ -1,0 +1,24 @@
+{
+  "category": {
+    "id": "web-tools",
+    "name": "网络工具",
+    "subcategories": [
+      { "id": "web-tools-security", "name": "安全工具" },
+      { "id": "web-tools-dev", "name": "开发工具" },
+      { "id": "web-tools-other", "name": "其它工具" }
+    ]
+  },
+  "resources": [
+    {
+      "id": "1",
+      "title": "GitHub - owasp-amass/amass",
+      "description": "一款可寻找资产关联的工具",
+      "links": [
+        { "url": "https://github.com/owasp-amass/amass", "type": "direct", "name": "GitHub官方" }
+      ],
+      "category": "web-tools",
+      "subcategory": "web-tools-security",
+      "tags": ["安全", "资产发现", "开源"]
+    }
+  ]
+}

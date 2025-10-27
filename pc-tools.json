@@ -1,0 +1,35 @@
+{
+  "category": {
+    "id": "pc-tools",
+    "name": "电脑工具",
+    "subcategories": [
+      { "id": "pc-tools-system", "name": "系统工具" },
+      { "id": "pc-tools-office", "name": "办公工具" },
+      { "id": "pc-tools-media", "name": "媒体工具" }
+    ]
+  },
+  "resources": [
+    {
+      "id": "1",
+      "title": "VSCode - 强大的代码编辑器",
+      "description": "微软出品的免费开源代码编辑器",
+      "links": [
+        { "url": "https://code.visualstudio.com/", "type": "direct", "name": "官方下载" }
+      ],
+      "category": "pc-tools",
+      "subcategory": "pc-tools-office",
+      "tags": ["编辑器", "开发工具", "免费"]
+    },
+    {
+      "id": "2",
+      "title": "Wireshark - 网络协议分析工具",
+      "description": "强大的网络数据包分析软件",
+      "links": [
+        { "url": "https://www.wireshark.org/", "type": "direct", "name": "官方网站" }
+      ],
+      "category": "pc-tools",
+      "subcategory": "pc-tools-system",
+      "tags": ["网络", "安全", "分析"]
+    }
+  ]
+}
