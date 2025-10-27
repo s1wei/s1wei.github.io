@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>资源分享网</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+
+            <div class="search-container">
+                <form id="searchForm" action="https://www.bing.com/search" method="get" target="_blank">
+                    <div class="search-engines">
+                        <button type="button" class="engine-btn active" data-engine="bing">必应</button>
+                        <button type="button" class="engine-btn" data-engine="baidu">百度</button>
+                        <button type="button" class="engine-btn" data-engine="douyin">抖音</button>
+                        <button type="button" class="engine-btn" data-engine="bilibili">B站</button>
+                        <button type="button" class="engine-btn" data-engine="zhihu">知乎</button>
+                    </div>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="searchInput" name="q">
+                        <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div id="categories" class="categories">
+                <!-- 分类将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container">
+            <div class="content-area">
+                <div class="category-header">
+                    <h2 id="currentCategory">所有资源</h2>
+                    <div id="subcategories" class="subcategories">
+                        <!-- 子分类将通过JavaScript动态加载 -->
+                    </div>
+                </div>
+                <div id="resources" class="resources-grid">
+                    <!-- 资源将通过JavaScript动态加载 -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 链接选择弹窗 -->
+    <div id="linkModal" class="link-modal">
+        <div class="link-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="link-modal-header">选择资源链接</div>
+            <div id="linkOptions"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 资源网</p>
+        </div>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
