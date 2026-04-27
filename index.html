@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>狄小源 · 私人图床</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(99, 102, 241, 0.15);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated background */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+
+        .bg-glow-1 {
+            position: fixed;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float1 8s ease-in-out infinite;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(129, 140, 248, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float2 10s ease-in-out infinite;
+        }
+
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-30px, 30px); }
+        }
+
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+
+        /* Main content */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            max-width: 720px;
+            width: 100%;
+        }
+
+        /* Logo / Icon */
+        .logo-wrapper {
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .logo {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 1.2rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--accent) 0%, #a78bfa 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px var(--accent-glow), 0 8px 32px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(255,255,255,0.1), transparent 30%);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+
+        .logo svg {
+            width: 44px;
+            height: 44px;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .domain {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            letter-spacing: 0.5px;
+        }
+
+        /* Title */
+        .title {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            line-height: 1.2;
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .title .highlight {
+            background: linear-gradient(135deg, var(--accent-light), #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        /* Card */
+        .card {
+            background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.6));
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .card-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .card-label::before,
+        .card-label::after {
+            content: '';
+            width: 20px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+
+        .card-domain {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-weight: 700;
+            font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .card-desc strong {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .feature {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 1.6rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .feature-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .feature-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Button */
+        .cta {
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.95rem 2.4rem;
+            background: linear-gradient(135deg, var(--accent), #7c3aed);
+            color: white;
+            text-decoration: none;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .cta-btn:active {
+            transform: translateY(0);
+        }
+
+        .cta-btn svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-btn:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-text a {
+            color: var(--accent-light);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-text a:hover {
+            color: #c4b5fd;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem 1.2rem;
+            }
+
+            .logo {
+                width: 72px;
+                height: 72px;
+                border-radius: 20px;
+            }
+
+            .logo svg {
+                width: 36px;
+                height: 36px;
+            }
+
+            .card {
+                padding: 2rem 1.5rem;
+                border-radius: 16px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .feature {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                text-align: left;
+                padding: 1.2rem 1.5rem;
+            }
+
+            .feature-icon {
+                margin-bottom: 0;
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .features {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.8rem;
+            }
+        }
+
+        /* Particles */
+        .particle {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-light);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 0;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10vh) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <!-- Particles -->
+    <div id="particles"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-wrapper">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                </svg>
+            </div>
+            <div class="domain">img.disrc.cn</div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="title">
+            <span class="highlight">狄小源</span> 的私人图床
+        </h1>
+        <p class="subtitle">稳定 · 安全 · 私有化部署</p>
+
+        <!-- Info Card -->
+        <div class="card">
+            <div class="card-label">Private Image Hosting</div>
+            <div class="card-domain">img.disrc.cn</div>
+            <p class="card-desc">
+                本站为 <strong>狄小源</strong> 的私人图床服务，<br>
+                仅供个人使用，暂不开放公开注册。<br>
+                如需了解更多信息，请访问官方网站。
+            </p>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div>
+                    <div class="feature-title">极速传输</div>
+                    <div class="feature-sub">CDN 全球加速</div>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div>
+                    <div class="feature-title">安全存储</div>
+                    <div class="feature-sub">数据加密保护</div>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛡️</div>
+                <div>
+                    <div class="feature-title">私有部署</div>
+                    <div class="feature-sub">独立运行维护</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta">
+            <a href="https://disrc.cn" target="_blank" rel="noopener noreferrer" class="cta-btn">
+                访问官方网站
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                    <polyline points="12 5 19 12 12 19"/>
+                </svg>
+            </a>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p class="footer-text">
+                © 2024‑2026 <a href="https://disrc.cn" target="_blank" rel="noopener noreferrer">狄小源</a> · All rights reserved<br>
+                本站为私人服务，未经授权请勿使用
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        (function() {
+            const container = document.getElementById('particles');
+            const count = window.innerWidth < 640 ? 8 : 15;
+
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 3 + 1) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 10) + 's';
+                container.appendChild(particle);
+            }
+        })();
+    </script>
+</body>
+</html>
