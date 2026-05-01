@@ -1,144 +1,11 @@
-
 <!DOCTYPE html>
-<!-- saved from url=(0074)file:///Users/siwei/Library/Mobile%20Documents/com~apple~CloudDocs/images/ -->
-<html dir="ltr" lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html dir="ltr" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="color-scheme" content="light dark">
 <meta name="google" value="notranslate">
 
-<script>
-function addRow(name, url, isdir,
-    size, size_string, date_modified, date_modified_string) {
-  if (name == "." || name == "..")
-    return;
-
-  var root = document.location.pathname;
-  if (root.substr(-1) !== "/")
-    root += "/";
-
-  var tbody = document.getElementById("tbody");
-  var row = document.createElement("tr");
-  var file_cell = document.createElement("td");
-  var link = document.createElement("a");
-
-  link.className = isdir ? "icon dir" : "icon file";
-
-  if (isdir) {
-    name = name + "/";
-    url = url + "/";
-    size = 0;
-    size_string = "";
-  } else {
-    link.draggable = "true";
-    link.addEventListener("dragstart", onDragStart, false);
-  }
-  link.innerText = name;
-  link.href = root + url;
-
-  file_cell.dataset.value = name;
-  file_cell.appendChild(link);
-
-  row.appendChild(file_cell);
-  row.appendChild(createCell(size, size_string));
-  row.appendChild(createCell(date_modified, date_modified_string));
-
-  tbody.appendChild(row);
-}
-
-function onDragStart(e) {
-  var el = e.srcElement;
-  var name = el.innerText.replace(":", "");
-  var download_url_data = "application/octet-stream:" + name + ":" + el.href;
-  e.dataTransfer.setData("DownloadURL", download_url_data);
-  e.dataTransfer.effectAllowed = "copy";
-}
-
-function createCell(value, text) {
-  var cell = document.createElement("td");
-  cell.setAttribute("class", "detailsColumn");
-  cell.dataset.value = value;
-  cell.innerText = text;
-  return cell;
-}
-
-function start(location) {
-  var header = document.getElementById("header");
-  header.innerText = header.innerText.replace("LOCATION", location);
-
-  document.getElementById("title").innerText = header.innerText;
-}
-
-function onHasParentDirectory() {
-  var box = document.getElementById("parentDirLinkBox");
-  box.style.display = "block";
-
-  var root = document.location.pathname;
-  if (!root.endsWith("/"))
-    root += "/";
-
-  var link = document.getElementById("parentDirLink");
-  link.href = root + "..";
-}
-
-function sortTable(column) {
-  var theader = document.getElementById("theader");
-  var oldOrder = theader.cells[column].dataset.order || '1';
-  oldOrder = parseInt(oldOrder, 10)
-  var newOrder = 0 - oldOrder;
-  theader.cells[column].dataset.order = newOrder;
-
-  var tbody = document.getElementById("tbody");
-  var rows = tbody.rows;
-  var list = [], i;
-  for (i = 0; i < rows.length; i++) {
-    list.push(rows[i]);
-  }
-
-  list.sort(function(row1, row2) {
-    var a = row1.cells[column].dataset.value;
-    var b = row2.cells[column].dataset.value;
-    if (column) {
-      a = parseInt(a, 10);
-      b = parseInt(b, 10);
-      return a > b ? newOrder : a < b ? oldOrder : 0;
-    }
-
-    // Column 0 is text.
-    if (a > b)
-      return newOrder;
-    if (a < b)
-      return oldOrder;
-    return 0;
-  });
-
-  // Appending an existing child again just moves it.
-  for (i = 0; i < list.length; i++) {
-    tbody.appendChild(list[i]);
-  }
-}
-
-// Add event handlers to column headers.
-function addHandlers(element, column) {
-  element.onclick = (e) => sortTable(column);
-  element.onkeydown = (e) => {
-    if (e.key == 'Enter' || e.key == ' ') {
-      sortTable(column);
-      e.preventDefault();
-    }
-  };
-}
-
-function onLoad() {
-  addHandlers(document.getElementById('nameColumnHeader'), 0);
-  addHandlers(document.getElementById('sizeColumnHeader'), 1);
-  addHandlers(document.getElementById('dateColumnHeader'), 2);
-}
-
-window.addEventListener('DOMContentLoaded', onLoad);
-</script>
-
 <style>
-
   h1 {
     border-bottom: 1px solid #c0c0c0;
     margin-bottom: 10px;
@@ -171,15 +38,15 @@ window.addEventListener('DOMContentLoaded', onLoad);
   }
 
   a.file {
-    background : url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABnRSTlMAAAAAAABupgeRAAABEElEQVR42nRRx3HDMBC846AHZ7sP54BmWAyrsP588qnwlhqw/k4v5ZwWxM1hzmGRgV1cYqrRarXoH2w2m6qqiqKIR6cPtzc3xMSML2Te7XZZlnW7Pe/91/dX47WRBHuA9oyGmRknzGDjab1ePzw8bLfb6WRalmW4ip9FDVpYSWZgOp12Oh3nXJ7nxoJSGEciteP9y+fH52q1euv38WosqA6T2gGOT44vry7BEQtJkMAMMpa6JagAMcUfWYa4hkkzAc7fFlSjwqCoOUYAF5RjHZPVCFBOtSBGfgUDji3c3jpibeEMQhIMh8NwshqyRsBJgvF4jMs/YlVR5KhgNpuBLzk0OcUiR3CMhcPaOzsZiAAA/AjmaB3WZIkAAAAASUVORK5CYII=") left top no-repeat;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABnRSTlMAAAAAAABupgeRAAABEElEQVR42nRRx3HDMBC846AHZ7sP54BmWAyrsP588qnwlhqw/k4v5ZwWxM1hzmGRgV1cYqrRarXoH2w2m6qqiqKIR6cPtzc3xMSML2Te7XZZlnW7Pe/91/dX47WRBHuA9oyGmRknzGDjab1ePzw8bLfb6WRalmW4ip9FDVpYSWZgOp12Oh3nXJ7nxoJSGEciteP9y+fH52q1euv38WosqA6T2gGOT44vry7BEQtJkMAMMpa6JagAMcUfWYa4hkkzAc7fFlSjwqCoOUYAF5RjHZPVCFBOtSBGfgUDji3c3jpibeEMQhIMh8NwshqyRsBJgvF4jMs/YlVR5KhgNpuBLzk0OcUiR3CMhcPaOzsZiAAA/AjmaB3WZIkAAAAASUVORK5CYII=") left top no-repeat;
   }
 
   a.dir {
-    background : url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABt0lEQVR42oxStZoWQRCs2cXdHTLcHZ6EjAwnQWIkJyQlRt4Cd3d3d1n5d7q7ju1zv/q+mh6taQsk8fn29kPDRo87SDMQcNAUJgIQkBjdAoRKdXjm2mOH0AqS+PlkP8sfp0h93iu/PDji9s2FzSSJVg5ykZqWgfGRr9rAAAQiDFoB1OfyESZEB7iAI0lHwLREQBcQQKqo8p+gNUCguwCNAAUQAcFOb0NNGjT+BbUC2YsHZpWLhC6/m0chqIoM1LKbQIIBwlTQE1xAo9QDGDPYf6rkTpPc92gCUYVJAZjhyZltJ95f3zuvLYRGWWCUNkDL2333McBh4kaLlxg+aTmyL7c2xTjkN4Bt7oE3DBP/3SRz65R/bkmBRPGzcRNHYuzMjaj+fdnaFoJUEdTSXfaHbe7XNnMPyqryPcmfY+zURaAB7SHk9cXSH4fQ5rojgCAVIuqCNWgRhLYLhJB4k3iZfIPtnQiCpjAzeBIRXMA6emAqoEbQSoDdGxFUrxS1AYcpaNbBgyQBGJEOnYOeENKR/iAd1npusI4C75/c3539+nbUjOgZV5CkAU27df40lH+agUdIuA/EAgDmZnwZlhDc0wAAAABJRU5ErkJggg==") left top no-repeat;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABt0lEQVR42oxStZoWQRCs2cXdHTLcHZ6EjAwnQWIkJyQlRt4Cd3d3d1n5d7q7ju1zv/q+mh6taQsk8fn29kPDRo87SDMQcNAUJgIQkBjdAoRKdXjm2mOH0AqS+PlkP8sfp0h93iu/PDji9s2FzSSJVg5ykZqWgfGRr9rAAAQiDFoB1OfyESZEB7iAI0lHwLREQBcQQKqo8p+gNUCguwCNAAUQAcFOb0NNGjT+BbUC2YsHZpWLhC6/m0chqIoM1LKbQIIBwlTQE1xAo9QDGDPYf6rkTpPc92gCUYVJAZjhyZltJ95f3zuvLYRGWWCUNkDL2333McBh4kaLlxg+aTmyL7c2xTjkN4Bt7oE3DBP/3SRz65R/bkmBRPGzcRNHYuzMjaj+fdnaFoJUEdTSXfaHbe7XNnMPyqryPcmfY+zURaAB7SHk9cXSH4fQ5rojgCAVIuqCNWgRhLYLhJB4k3iZfIPtnQiCpjAzeBIRXMA6emAqoEbQSoDdGxFUrxS1AYcpaNbBgyQBGJEOnYOeENKR/iAd1npusI4C75/c3539+nbUjOgZV5CkAU27df40lH+agUdIuA/EAgDmZnwZlhDc0wAAAABJRU5ErkJggg==") left top no-repeat;
   }
 
   a.up {
-    background : url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACM0lEQVR42myTA+w1RxRHz+zftmrbdlTbtq04qRGrCmvbDWp9tq3a7tPcub8mj9XZ3eHOGQdJAHw77/LbZuvnWy+c/CIAd+91CMf3bo+bgcBiBAGIZKXb19/zodsAkFT+3px+ssYfyHTQW5tr05dCOf3xN49KaVX9+2zy1dX4XMk+5JflN5MBPL30oVsvnvEyp+18Nt3ZAErQMSFOfelCFvw0HcUloDayljZkX+MmamTAMTe+d+ltZ+1wEaRAX/MAnkJdcujzZyErIiVSzCEvIiq4O83AG7LAkwsfIgAnbncag82jfPPdd9RQyhPkpNJvKJWQBKlYFmQA315n4YPNjwMAZYy0TgAweedLmLzTJSTLIxkWDaVCVfAbbiKjytgmm+EGpMBYW0WwwbZ7lL8anox/UxekaOW544HO0ANAshxuORT/RG5YSrjlwZ3lM955tlQqbtVMlWIhjwzkAVFB8Q9EAAA3AFJ+DR3DO/Pnd3NPi7H117rAzWjpEs8vfIqsGZpaweOfEAAFJKuM0v6kf2iC5pZ9+fmLSZfWBVaKfLLNOXj6lYY0V2lfyVCIsVzmcRV9Y0fx02eTaEwhl2PDrXcjFdYRAohQmS8QEFLCLKGYA0AeEakhCCFDXqxsE0AQACgAQp5w96o0lAXuNASeDKWIvADiHwigfBINpWKtAXJvCEKWgSJNbRvxf4SmrnKDpvZavePu1K/zu/due1X/6Nj90MBd/J2Cic7WjBp/jUdIuA8AUtd65M+PzXIAAAAASUVORK5CYII=") left top no-repeat;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACM0lEQVR42myTA+w1RxRHz+zftmrbdlTbtq04qRGrCmvbDWp9tq3a7tPcub8mj9XZ3eHOGQdJAHw77/LbZuvnWy+c/CIAd+91CMf3bo+bgcBiBAGIZKXb19/zodsAkFT+3px+ssYfyHTQW5tr05dCOf3xN49KaVX9+2zy1dX4XMk+5JflN5MBPL30oVsvnvEyp+18Nt3ZAErQMSFOfelCFvw0HcUloDayljZkX+MmamTAMTe+d+ltZ+1wEaRAX/MAnkJdcujzZyErIiVSzCEvIiq4O83AG7LAkwsfIgAnbncag82jfPPdd9RQyhPkpNJvKJWQBKlYFmQA315n4YPNjwMAZYy0TgAweedLmLzTJSTLIxkWDaVCVfAbbiKjytgmm+EGpMBYW0WwwbZ7lL8anox/UxekaOW544HO0ANAshxuORT/RG5YSrjlwZ3lM955tlQqbtVMlWIhjwzkAVFB8Q9EAAA3AFJ+DR3DO/Pnd3NPi7H117rAzWjpEs8vfIqsGZpaweOfEAAFJKuM0v6kf2iC5pZ9+fmLSZfWBVaKfLLNOXj6lYY0V2lfyVCIsVzmcRV9Y0fx02eTaEwhl2PDrXcjFdYRAohQmS8QEFLCLKGYA0AeEakhCCFDXqxsE0AQACgAQp5w96o0lAXuNASeDKWIvADiHwigfBINpWKtAXJvCEKWgSJNbRvxf4SmrnKDpvZavePu1K/zu/due1X/6Nj90MBd/J2Cic7WjBp/jUdIuA8AUtd65M+PzXIAAAAASUVORK5CYII=") left top no-repeat;
   }
 
   html[dir=rtl] a {
@@ -192,43 +59,222 @@ window.addEventListener('DOMContentLoaded', onLoad);
   }
 </style>
 
-<title id="title">/Users/siwei/Library/Mobile Documents/com~apple~CloudDocs/images/ 的索引</title>
+<title id="title">Index of /var/www/backup/</title>
 
 </head>
 
 <body>
 
-<h1 id="header">/Users/siwei/Library/Mobile Documents/com~apple~CloudDocs/images/ 的索引</h1>
+<h1 id="header">Index of /var/www/backup/</h1>
 
 <div id="parentDirLinkBox" style="display: block;">
-  <a id="parentDirLink" class="icon up" href="file:///Users/siwei/Library/Mobile%20Documents/com~apple~CloudDocs/">
-    <span id="parentDirText">[父目录]</span>
+  <a id="parentDirLink" class="icon up" href="../">
+    <span id="parentDirText">[parent directory]</span>
   </a>
 </div>
 
 <table>
   <thead>
     <tr class="header" id="theader">
-      <th id="nameColumnHeader" tabindex="0" role="button">名称</th>
+      <th id="nameColumnHeader" tabindex="0" role="button">Name</th>
       <th id="sizeColumnHeader" class="detailsColumn" tabindex="0" role="button">
-        大小
+        Size
       </th>
       <th id="dateColumnHeader" class="detailsColumn" tabindex="0" role="button">
-        修改日期
+        Last Modified
       </th>
     </tr>
   </thead>
   <tbody id="tbody">
-  <tr><td data-value="WechatIMG29.jpg"><a class="icon file" draggable="true" href="file:///Users/siwei/Library/Mobile%20Documents/com~apple~CloudDocs/images/WechatIMG29.jpg">WechatIMG29.jpg</a></td><td class="detailsColumn" data-value="3874">3.8 kB</td><td class="detailsColumn" data-value="1729851453">2024/10/25 18:17:33</td></tr></tbody>
+  </tbody>
 </table>
 
+<script>
+function pad(n, len) {
+  return String(n).padStart(len, '0');
+}
 
+function rand(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
+function randomChoice(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
 
-<script>// Copyright 2012 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-"use strict";var loadTimeData;class LoadTimeData{constructor(){this.data_=null}set data(value){expect(!this.data_,"Re-setting data.");this.data_=value}valueExists(id){return id in this.data_}getValue(id){expect(this.data_,"No data. Did you remember to include strings.js?");const value=this.data_[id];expect(typeof value!=="undefined","Could not find value for "+id);return value}getString(id){const value=this.getValue(id);expectIsType(id,value,"string");return value}getStringF(id,var_args){const value=this.getString(id);if(!value){return""}const args=Array.prototype.slice.call(arguments);args[0]=value;return this.substituteString.apply(this,args)}substituteString(label,var_args){const varArgs=arguments;return label.replace(/\$(.|$|\n)/g,(function(m){expect(m.match(/\$[$1-9]/),"Unescaped $ found in localized string.");return m==="$$"?"$":varArgs[m[1]]}))}getBoolean(id){const value=this.getValue(id);expectIsType(id,value,"boolean");return value}getInteger(id){const value=this.getValue(id);expectIsType(id,value,"number");expect(value===Math.floor(value),"Number isn't integer: "+value);return value}overrideValues(replacements){expect(typeof replacements==="object","Replacements must be a dictionary object.");for(const key in replacements){this.data_[key]=replacements[key]}}}function expect(condition,message){if(!condition){throw new Error("Unexpected condition on "+document.location.href+": "+message)}}function expectIsType(id,value,type){expect(typeof value===type,"["+value+"] ("+id+") is not a "+type)}expect(!loadTimeData,"should only include this file once");loadTimeData=new LoadTimeData;window.loadTimeData=loadTimeData;console.warn("crbug/1173575, non-JS module files deprecated.");</script><script>loadTimeData.data = {"header":"LOCATION 的索引","headerDateModified":"修改日期","headerName":"名称","headerSize":"大小","language":"zh","parentDirText":"[父目录]","textdirection":"ltr"};</script><script>start("/Users/siwei/Library/Mobile Documents/com~apple~CloudDocs/images/");</script>
-<script>onHasParentDirectory();</script>
-<script>addRow("WechatIMG29.jpg","WechatIMG29.jpg",0,3874,"3.8 kB",1729851453,"2024/10/25 18:17:33");</script>
-</body></html>
+function formatSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' kB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function generateFiles() {
+  var now = new Date();
+  var todayStr = pad(now.getFullYear(), 4) + pad(now.getMonth() + 1, 2) + pad(now.getDate(), 2);
+
+  var extensions = [
+    { ext: '.jpg',  sizeRange: [120000, 8500000] },
+    { ext: '.png',  sizeRange: [50000, 6200000] },
+    { ext: '.sql',  sizeRange: [15000000, 98000000] },
+    { ext: '.zip',  sizeRange: [5000000, 200000000] },
+    { ext: '.tar.gz', sizeRange: [8000000, 150000000] },
+    { ext: '.pdf',  sizeRange: [200000, 15000000] },
+    { ext: '.doc',  sizeRange: [150000, 8000000] },
+    { ext: '.xls',  sizeRange: [100000, 6000000] },
+    { ext: '.bak',  sizeRange: [10000000, 200000000] },
+    { ext: '.env',  sizeRange: [200, 3000] },
+    { ext: '.log',  sizeRange: [500000, 50000000] },
+  ];
+
+  var descriptiveNames = [
+    'database_backup', 'user_data', 'export_orders', 'customer_info',
+    'payment_records', 'admin_credentials', 'api_keys', 'server_config',
+    'db_dump', 'full_backup', 'sensitive_data', 'internal_docs',
+    'salary_2025', 'financial_report', 'passport_scans', 'id_cards',
+    'contract_scan', 'medical_records', 'private_photos', 'screenshot',
+    'production_db', 'staging_backup', 'logs_export', 'email_archive',
+    'chat_history', 'wechat_export', 'bank_statement', 'tax_return'
+  ];
+
+  var fileCount = rand(22, 38);
+  var files = [];
+
+  var usedNames = {};
+  var usedSlots = {};
+
+  for (var i = 0; i < fileCount; i++) {
+    var hour = rand(0, 23);
+    var min = rand(0, 59);
+    var sec = rand(0, 59);
+    var ms = rand(0, 999);
+    var timeStr = pad(hour, 2) + pad(min, 2) + pad(sec, 2) + pad(ms, 3);
+
+    var slot = hour * 3600 + min * 60 + sec;
+    while (usedSlots[slot]) {
+      slot = rand(0, 86399);
+    }
+    usedSlots[slot] = true;
+    hour = Math.floor(slot / 3600);
+    min = Math.floor((slot % 3600) / 60);
+    sec = slot % 60;
+    timeStr = pad(hour, 2) + pad(min, 2) + pad(sec, 2) + pad(ms, 3);
+
+    var extInfo = randomChoice(extensions);
+    var name = todayStr + timeStr + randomChoice(descriptiveNames);
+
+    while (usedNames[name + extInfo.ext]) {
+      name = todayStr + timeStr + randomChoice(descriptiveNames);
+    }
+    usedNames[name + extInfo.ext] = true;
+
+    var size = rand(extInfo.sizeRange[0], extInfo.sizeRange[1]);
+    var sizeStr = formatSize(size);
+
+    var fullName = name + extInfo.ext;
+    var ts = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hour, min, sec).getTime() / 1000;
+    var dateStr = pad(now.getFullYear(), 4) + '/' + pad(now.getMonth() + 1, 2) + '/' + pad(now.getDate(), 2) + ' ' + pad(hour, 2) + ':' + pad(min, 2) + ':' + pad(sec, 2);
+
+    files.push({
+      name: fullName,
+      size: size,
+      sizeStr: sizeStr,
+      dateTs: ts,
+      dateStr: dateStr
+    });
+  }
+
+  files.sort(function(a, b) { return b.dateTs - a.dateTs; });
+
+  return files;
+}
+
+function addRow(name, size, sizeStr, dateTs, dateStr) {
+  var tbody = document.getElementById("tbody");
+  var row = document.createElement("tr");
+  var fileCell = document.createElement("td");
+  var link = document.createElement("a");
+
+  link.className = "icon file";
+  link.draggable = "true";
+  link.innerText = name;
+  link.href = name;
+
+  fileCell.dataset.value = name;
+  fileCell.appendChild(link);
+
+  row.appendChild(fileCell);
+
+  var sizeCell = document.createElement("td");
+  sizeCell.setAttribute("class", "detailsColumn");
+  sizeCell.dataset.value = size;
+  sizeCell.innerText = sizeStr;
+  row.appendChild(sizeCell);
+
+  var dateCell = document.createElement("td");
+  dateCell.setAttribute("class", "detailsColumn");
+  dateCell.dataset.value = dateTs;
+  dateCell.innerText = dateStr;
+  row.appendChild(dateCell);
+
+  tbody.appendChild(row);
+}
+
+function sortTable(column) {
+  var theader = document.getElementById("theader");
+  var oldOrder = theader.cells[column].dataset.order || '1';
+  oldOrder = parseInt(oldOrder, 10);
+  var newOrder = 0 - oldOrder;
+  theader.cells[column].dataset.order = newOrder;
+
+  var tbody = document.getElementById("tbody");
+  var rows = tbody.rows;
+  var list = [];
+  for (var i = 0; i < rows.length; i++) {
+    list.push(rows[i]);
+  }
+
+  list.sort(function(row1, row2) {
+    var a = row1.cells[column].dataset.value;
+    var b = row2.cells[column].dataset.value;
+    if (column === 0) {
+      if (a > b) return newOrder;
+      if (a < b) return oldOrder;
+      return 0;
+    }
+    a = parseInt(a, 10);
+    b = parseInt(b, 10);
+    if (isNaN(a)) a = 0;
+    if (isNaN(b)) b = 0;
+    return a > b ? newOrder : a < b ? oldOrder : 0;
+  });
+
+  for (var i = 0; i < list.length; i++) {
+    tbody.appendChild(list[i]);
+  }
+}
+
+function addHandlers(element, column) {
+  element.onclick = function() { sortTable(column); };
+  element.onkeydown = function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      sortTable(column);
+      e.preventDefault();
+    }
+  };
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  addHandlers(document.getElementById('nameColumnHeader'), 0);
+  addHandlers(document.getElementById('sizeColumnHeader'), 1);
+  addHandlers(document.getElementById('dateColumnHeader'), 2);
+
+  var files = generateFiles();
+  for (var i = 0; i < files.length; i++) {
+    var f = files[i];
+    addRow(f.name, f.size, f.sizeStr, f.dateTs, f.dateStr);
+  }
+});
+</script>
+
+</body>
+</html>
